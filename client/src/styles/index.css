@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --paper: #F4F1EA;
+    --paper-card: #FAF8F5;
+    --paper-dark: #EBE7DE;
+    --ink: #16150F;
+    --ink-muted: #5F5C54;
+    --signal: #FF5B1F;
+    --olive: #5C6B3C;
+    --amber: #C28800;
+    --brick: #C53030;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(22, 21, 15, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Accessible focus styling */
+  *:focus-visible {
+    outline: 2px solid var(--signal) !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Rubber Stamp Styling */
+.rubber-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: 1.5px solid currentColor;
+  transform: rotate(-2deg);
+  border-radius: 2px;
+  box-shadow: 1px 1px 0 rgba(22, 21, 15, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.rubber-stamp:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+/* Tactile button pressed effect */
+.tactile-btn {
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.tactile-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #16150F !important;
+}
+
+/* Perforated receipt edge */
+.perforated-edge {
+  background-image: radial-gradient(circle at 10px -5px, transparent 8px, #FAF8F5 9px);
+  background-size: 20px 20px;
+}
+
+/* Ledger paper line */
+.ledger-line {
+  border-bottom: 1.5px dashed #D4D0C5;
+}
+
+/* Subtle stamp-in animation */
+@keyframes stampIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.4) rotate(6deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.95) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+.animate-stamp-in {
+  animation: stampIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-stamp-in {
+    animation: none;
+  }
+  .rubber-stamp, .tactile-btn {
+    transition: none;
+    transform: none !important;
+  }
+}
