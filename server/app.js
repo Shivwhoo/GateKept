@@ -50,8 +50,18 @@ app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 app.use(cookieParser());
 
-// Sanitize against NoSQL Query Injections
-app.use(mongoSanitize());
+// Sanitize against NoSQL Query Injections (Express 5 compatible)
+app.use((req, res, next) => {
+  ['body', 'params', 'headers'].forEach((key) => {
+    if (req[key]) {
+      mongoSanitize.sanitize(req[key]);
+    }
+  });
+  if (req.query) {
+    mongoSanitize.sanitize(req.query);
+  }
+  next();
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
